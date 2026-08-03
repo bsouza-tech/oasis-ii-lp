@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Dumbbell, GraduationCap, MapPin, Pill, Play, ShoppingBag, TrainFront, X } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Dumbbell, GraduationCap, MapPin, Pill, Play, ShoppingBag, TrainFront, X } from 'lucide-react'
 import { ReactLenis, useLenis } from 'lenis/react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import oasisSymbol from '../assets/logo-oasis-2.svg'
@@ -373,31 +373,32 @@ const spaceCards = [
 
 function ProofOfSpace({ onCta }: { onCta: () => void }) {
   const { ref, inView } = useInView(0.12)
+
   return (
-    <section className="relative py-24 md:py-28 px-5 bg-transparent">
+    <section className="relative py-16 md:py-28 px-5 bg-transparent">
       <div ref={ref} className="relative max-w-5xl mx-auto">
-        <div className="grid md:grid-cols-[1.15fr_0.85fr] gap-8 md:gap-14 items-end mb-12 md:mb-16">
+        <div className="grid md:grid-cols-[1.15fr_0.85fr] gap-6 md:gap-14 items-end mb-8 md:mb-16">
           <div
             className={`card-enter ${inView ? 'visible' : ''}`}
             style={{ transitionDelay: '0ms' }}
           >
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3 mb-3 md:mb-4">
               <span aria-hidden="true" className="h-px w-9 bg-orange" />
               <p className="text-orange font-bold text-xs uppercase tracking-[0.18em]">Espaço que você percebe</p>
             </div>
             <h2
               className="text-navy leading-[1.05] max-w-2xl"
-              style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.3rem, 5vw, 3.6rem)', fontWeight: 800 }}
+              style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 5vw, 3.6rem)', fontWeight: 800 }}
             >
               Metro quadrado que sobra, não que falta.
             </h2>
           </div>
 
           <div
-            className={`card-enter relative border-l-2 border-orange/60 pl-6 md:pl-7 py-1 ${inView ? 'visible' : ''}`}
+            className={`card-enter relative border-l-2 border-orange/60 pl-5 md:pl-7 py-1 ${inView ? 'visible' : ''}`}
             style={{ transitionDelay: '120ms' }}
           >
-            <p className="text-ink/60 text-base leading-relaxed">
+            <p className="text-ink/60 text-sm md:text-base leading-relaxed">
               Quem conhece as plantas do Oásis II repete a mesma observação:
               <strong className="block mt-2 text-navy font-bold">
                 o apartamento parece maior por dentro do que qualquer foto consegue mostrar.
@@ -406,40 +407,42 @@ function ProofOfSpace({ onCta }: { onCta: () => void }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-12 gap-3 md:gap-5">
           {spaceCards.map((card, i) => (
             <div
               key={i}
-              className={`space-card card-enter relative overflow-hidden rounded-[28px] border border-navy/10 bg-white p-7 md:p-8 shadow-[0_18px_50px_rgba(30,60,88,0.08)] ${i === 0 || i === 3 ? 'md:col-span-7' : 'md:col-span-5'} ${inView ? 'visible' : ''}`}
+              className={`space-card card-enter relative overflow-hidden rounded-[20px] md:rounded-[28px] border border-navy/10 bg-white p-4 md:p-8 shadow-[0_14px_40px_rgba(30,60,88,0.08)] ${i === 0 || i === 3 ? 'md:col-span-7' : 'md:col-span-5'} ${inView ? 'visible' : ''}`}
               style={{ transitionDelay: `${180 + i * 90}ms` }}
             >
-              <div aria-hidden="true" className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-orange/50 to-transparent" />
+              <div aria-hidden="true" className="absolute top-0 left-4 right-4 md:left-8 md:right-8 h-px bg-gradient-to-r from-transparent via-orange/50 to-transparent" />
               <span
                 aria-hidden="true"
-                className="absolute -right-2 -bottom-10 text-navy/[0.035] font-extrabold leading-none select-none"
-                style={{ fontFamily: 'var(--font-display)', fontSize: '8rem' }}
+                className="absolute -right-1 -bottom-6 md:-right-2 md:-bottom-10 text-navy/[0.04] md:text-navy/[0.035] font-extrabold leading-none select-none"
+                style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(3.5rem, 12vw, 8rem)' }}
               >
                 {String(i + 1).padStart(2, '0')}
               </span>
 
-              <div className="relative flex gap-5 items-start">
+              <div className="relative flex flex-col md:flex-row gap-3 md:gap-5 items-start">
                 <CircleBadge icon={card.icon} delay={inView ? i * 90 + 300 : 0} visible={inView} />
-                <div className="pt-0.5">
-                  <span className="text-orange/70 text-[10px] font-bold uppercase tracking-[0.2em]">Detalhe {String(i + 1).padStart(2, '0')}</span>
-                <h3
-                    className="text-navy font-extrabold text-lg mt-2 mb-2 leading-snug"
-                  style={{ fontFamily: 'var(--font-display)' }}
-                >
-                  {card.title}
-                </h3>
-                  <p className="text-ink/60 text-sm leading-relaxed max-w-md">{card.desc}</p>
+                <div className="pt-0.5 min-w-0">
+                  <span className="text-orange/70 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em]">
+                    Detalhe {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <h3
+                    className="text-navy font-extrabold text-sm md:text-lg mt-1.5 md:mt-2 mb-1.5 md:mb-2 leading-snug"
+                    style={{ fontFamily: 'var(--font-display)' }}
+                  >
+                    {card.title}
+                  </h3>
+                  <p className="text-ink/60 text-xs md:text-sm leading-relaxed max-w-md">{card.desc}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className={`mt-12 flex justify-center card-enter ${inView ? 'visible' : ''}`} style={{ transitionDelay: '520ms' }}>
+        <div className={`mt-8 md:mt-12 flex justify-center card-enter ${inView ? 'visible' : ''}`} style={{ transitionDelay: '520ms' }}>
           <PillButton onClick={onCta} size="lg">Quero ver as plantas</PillButton>
         </div>
       </div>
@@ -570,76 +573,268 @@ const rooftopPhotos = [
   },
 ]
 
-function RooftopBlock({ onCta }: { onCta: () => void }) {
-  const { ref, inView } = useInView(0.08)
+function RooftopLightbox({
+  index,
+  onClose,
+  onIndexChange,
+}: {
+  index: number
+  onClose: () => void
+  onIndexChange: (index: number) => void
+}) {
+  const lenis = useLenis()
+  const reduceMotion = useReducedMotion()
+  const photo = rooftopPhotos[index]
+  const total = rooftopPhotos.length
+  const touchStartX = useRef<number | null>(null)
+
+  const goPrev = () => onIndexChange((index - 1 + total) % total)
+  const goNext = () => onIndexChange((index + 1) % total)
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    lenis?.stop()
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose()
+      if (event.key === 'ArrowLeft') onIndexChange((index - 1 + total) % total)
+      if (event.key === 'ArrowRight') onIndexChange((index + 1) % total)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      lenis?.start()
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [index, lenis, onClose, onIndexChange, total])
+
   return (
-    <section className="relative overflow-hidden py-24 md:py-28 px-5 bg-navy">
-      <div aria-hidden="true" className="absolute -top-48 -right-32 w-[38rem] h-[38rem] rounded-full bg-teal/10 blur-3xl" />
-      <div aria-hidden="true" className="absolute top-[45%] -left-48 w-[32rem] h-[32rem] rounded-full bg-orange/[0.07] blur-3xl" />
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: reduceMotion ? 0 : 0.22 }}
+      className="fixed inset-0 z-[110] flex flex-col bg-navy-dark/95 backdrop-blur-md"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Galeria do rooftop — ${photo.label}`}
+    >
+      <div className="flex items-center justify-between gap-4 px-4 py-3 md:px-8 md:py-4">
+        <div className="min-w-0">
+          <p className="truncate text-base font-semibold text-white md:text-sm" style={{ fontFamily: 'var(--font-display)' }}>
+            {photo.label}
+          </p>
+          <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">
+            {index + 1} de {total}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-orange focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange md:h-11 md:w-11"
+          aria-label="Fechar galeria"
+        >
+          <X size={18} />
+        </button>
+      </div>
 
-      <div ref={ref} className="relative max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-end mb-14 md:mb-20">
-          <div
-            className={`card-enter md:col-span-8 ${inView ? 'visible' : ''}`}
-            style={{ transitionDelay: '0ms' }}
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <span aria-hidden="true" className="h-px w-9 bg-orange" />
-              <p className="text-orange font-bold text-xs uppercase tracking-[0.18em]">Lazer no topo</p>
-            </div>
-            <h2
-              className="text-white leading-[1.05] max-w-2xl"
-              style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.3rem, 5vw, 3.6rem)', fontWeight: 800 }}
-            >
-              Um rooftop que funciona como extensão da sua casa.
-            </h2>
-          </div>
+      <div
+        className="relative flex min-h-0 flex-1 items-center justify-center px-3 md:px-20"
+        onTouchStart={(event) => {
+          touchStartX.current = event.changedTouches[0]?.clientX ?? null
+        }}
+        onTouchEnd={(event) => {
+          if (touchStartX.current === null) return
+          const delta = (event.changedTouches[0]?.clientX ?? touchStartX.current) - touchStartX.current
+          touchStartX.current = null
+          if (Math.abs(delta) < 48) return
+          if (delta > 0) goPrev()
+          else goNext()
+        }}
+      >
+        <button
+          type="button"
+          onClick={goPrev}
+          className="absolute left-4 z-10 hidden h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-orange md:flex"
+          aria-label="Imagem anterior"
+        >
+          <ChevronLeft size={22} />
+        </button>
 
-          <div
-            className={`card-enter relative md:col-span-4 md:translate-y-6 border-l-2 border-orange/60 pl-6 md:pl-8 py-1 ${inView ? 'visible' : ''}`}
-            style={{ transitionDelay: '120ms' }}
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={photo.src}
+            src={photo.src}
+            alt={photo.label}
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={reduceMotion ? undefined : { opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className="max-h-full max-w-full select-none rounded-xl object-contain shadow-[0_30px_90px_rgba(0,0,0,0.45)] md:rounded-2xl"
+            draggable={false}
+          />
+        </AnimatePresence>
+
+        <button
+          type="button"
+          onClick={goNext}
+          className="absolute right-4 z-10 hidden h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-orange md:flex"
+          aria-label="Próxima imagem"
+        >
+          <ChevronRight size={22} />
+        </button>
+      </div>
+
+      <div className="border-t border-white/10 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 md:px-8 md:pb-6 md:pt-4">
+        <div className="mx-auto flex max-w-md items-center gap-3 md:hidden">
+          <button
+            type="button"
+            onClick={goPrev}
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white active:bg-orange"
+            aria-label="Imagem anterior"
           >
-            <p className="text-white/55 text-base leading-relaxed">
-              Cada espaço foi pensado para funcionar bem no dia a dia,
-              <strong className="block mt-2 text-white font-bold">não só nas fotos de divulgação.</strong>
+            <ChevronLeft size={20} />
+          </button>
+          <div className="min-w-0 flex-1 text-center">
+            <p className="truncate text-sm font-semibold text-white" style={{ fontFamily: 'var(--font-display)' }}>
+              {photo.label}
             </p>
+            <div className="mx-auto mt-2 h-1 max-w-[10rem] overflow-hidden rounded-full bg-white/15">
+              <div
+                className="h-full rounded-full bg-orange transition-all duration-300"
+                style={{ width: `${((index + 1) / total) * 100}%` }}
+              />
+            </div>
           </div>
+          <button
+            type="button"
+            onClick={goNext}
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white active:bg-orange"
+            aria-label="Próxima imagem"
+          >
+            <ChevronRight size={20} />
+          </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 md:grid-rows-[190px_190px_240px_320px] gap-5 md:gap-6">
-          {rooftopPhotos.map((photo, i) => (
-            <div
-              key={photo.src}
-              className={`relative h-[260px] md:h-auto overflow-hidden rounded-[24px] group border border-white/10 bg-navy-dark shadow-[0_20px_50px_rgba(0,0,0,0.18)] ${photo.span} card-enter ${inView ? 'visible' : ''}`}
-              style={{ transitionDelay: `${180 + i * 90}ms` }}
-            >
-              <img
-                src={photo.src}
-                alt={photo.label}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              />
-              <div
-                className="absolute inset-0"
-                style={{ background: 'linear-gradient(to top, rgba(21,44,65,0.9) 0%, rgba(21,44,65,0.08) 58%, transparent 100%)' }}
-              />
-              <span className="absolute top-4 right-4 text-white/55 text-[10px] font-bold tracking-[0.2em]">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <div className="absolute bottom-4 left-4 md:bottom-5 md:left-5">
-                <PhotoTag label={photo.label} />
-              </div>
-            </div>
+        <div className="hidden items-center justify-center gap-2 md:flex">
+          {rooftopPhotos.map((item, i) => (
+            <button
+              key={item.src}
+              type="button"
+              onClick={() => onIndexChange(i)}
+              aria-label={`Ir para ${item.label}`}
+              aria-current={i === index ? 'true' : undefined}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                i === index ? 'w-7 bg-orange' : 'w-2 bg-white/30 hover:bg-white/55'
+              }`}
+            />
           ))}
         </div>
-
-        <div className={`mt-12 flex flex-col items-center gap-3 card-enter ${inView ? 'visible' : ''}`} style={{ transitionDelay: '720ms' }}>
-          <PillButton onClick={onCta} size="lg">Quero conhecer o lazer</PillButton>
-          <p className="text-xs text-white/40">Receba fotos, plantas e condições.</p>
-        </div>
       </div>
-    </section>
+    </motion.div>
+  )
+}
+
+function RooftopBlock({ onCta }: { onCta: () => void }) {
+  const { ref, inView } = useInView(0.08)
+  const reduceMotion = useReducedMotion()
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+
+  return (
+    <>
+      <section className="relative overflow-hidden py-24 md:py-28 px-5 bg-navy">
+        <div aria-hidden="true" className="absolute -top-48 -right-32 w-[38rem] h-[38rem] rounded-full bg-teal/10 blur-3xl" />
+        <div aria-hidden="true" className="absolute top-[45%] -left-48 w-[32rem] h-[32rem] rounded-full bg-orange/[0.07] blur-3xl" />
+        <div className="pointer-events-none absolute top-8 right-0 h-56 w-56 translate-x-1/2 opacity-[0.16] sm:h-64 sm:w-64 md:top-1/2 md:h-[34rem] md:w-[34rem] md:-translate-y-1/2 md:opacity-[0.13]">
+          <motion.img
+            src={oasisSymbol}
+            alt=""
+            aria-hidden="true"
+            animate={reduceMotion ? undefined : { rotate: 360 }}
+            transition={{ duration: 72, repeat: Infinity, ease: 'linear' }}
+            className="h-full w-full"
+          />
+        </div>
+
+        <div ref={ref} className="relative max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-end mb-14 md:mb-20">
+            <div
+              className={`card-enter md:col-span-8 ${inView ? 'visible' : ''}`}
+              style={{ transitionDelay: '0ms' }}
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <span aria-hidden="true" className="h-px w-9 bg-orange" />
+                <p className="text-orange font-bold text-xs uppercase tracking-[0.18em]">Lazer no topo</p>
+              </div>
+              <h2
+                className="text-white leading-[1.05] max-w-2xl"
+                style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.3rem, 5vw, 3.6rem)', fontWeight: 800 }}
+              >
+                Um rooftop que funciona como extensão da sua casa.
+              </h2>
+            </div>
+
+            <div
+              className={`card-enter relative md:col-span-4 md:translate-y-6 border-l-2 border-orange/60 pl-6 md:pl-8 py-1 ${inView ? 'visible' : ''}`}
+              style={{ transitionDelay: '120ms' }}
+            >
+              <p className="text-white/55 text-base leading-relaxed">
+                Cada espaço foi pensado para funcionar bem no dia a dia,
+                <strong className="block mt-2 text-white font-bold">não só nas fotos de divulgação.</strong>
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 md:grid-rows-[190px_190px_240px_320px] gap-5 md:gap-6">
+            {rooftopPhotos.map((photo, i) => (
+              <button
+                key={photo.src}
+                type="button"
+                onClick={() => setLightboxIndex(i)}
+                className={`relative h-[260px] md:h-auto overflow-hidden rounded-[24px] group border border-white/10 bg-navy-dark shadow-[0_20px_50px_rgba(0,0,0,0.18)] text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2 focus-visible:ring-offset-navy ${photo.span} card-enter ${inView ? 'visible' : ''}`}
+                style={{ transitionDelay: `${180 + i * 90}ms` }}
+                aria-label={`Ampliar foto: ${photo.label}`}
+              >
+                <img
+                  src={photo.src}
+                  alt={photo.label}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{ background: 'linear-gradient(to top, rgba(21,44,65,0.9) 0%, rgba(21,44,65,0.08) 58%, transparent 100%)' }}
+                />
+                <span className="absolute top-4 right-4 text-white/55 text-[10px] font-bold tracking-[0.2em]">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div className="absolute bottom-4 left-4 md:bottom-5 md:left-5">
+                  <PhotoTag label={photo.label} />
+                </div>
+              </button>
+            ))}
+          </div>
+
+          <div className={`mt-12 flex flex-col items-center gap-3 card-enter ${inView ? 'visible' : ''}`} style={{ transitionDelay: '720ms' }}>
+            <PillButton onClick={onCta} size="lg">Quero conhecer o lazer</PillButton>
+            <p className="text-xs text-white/40">Receba fotos, plantas e condições.</p>
+          </div>
+        </div>
+      </section>
+
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <RooftopLightbox
+            index={lightboxIndex}
+            onClose={() => setLightboxIndex(null)}
+            onIndexChange={setLightboxIndex}
+          />
+        )}
+      </AnimatePresence>
+    </>
   )
 }
 
@@ -684,37 +879,81 @@ function LocationBlock({ onCta }: { onCta: () => void }) {
   const reduceMotion = useReducedMotion()
 
   return (
-    <section id="localizacao" className="relative overflow-hidden bg-cream px-5 py-24 md:py-28">
+    <section id="localizacao" className="relative overflow-hidden bg-cream px-5 py-16 md:py-28">
       <div className="pointer-events-none absolute -left-24 top-8 h-72 w-72 rounded-full bg-orange/8 blur-3xl" />
       <div className="pointer-events-none absolute -right-28 bottom-0 h-80 w-80 rounded-full bg-navy/7 blur-3xl" />
 
       <div ref={ref} className="relative mx-auto max-w-7xl">
-        <div className="mb-12 grid items-end gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:gap-16">
+        <div className="mb-8 grid items-end gap-6 md:mb-12 lg:grid-cols-[1.3fr_0.7fr] lg:gap-16">
           <div>
-            <div className="mb-4 flex items-center gap-3 text-orange">
+            <div className="mb-3 flex items-center gap-3 text-orange md:mb-4">
               <span className="h-px w-9 bg-orange/70" />
               <MapPin size={15} strokeWidth={2.2} aria-hidden="true" />
               <p className="text-xs font-semibold uppercase tracking-[0.2em]">Bairro da Luz</p>
             </div>
             <h2
               className="max-w-4xl text-navy leading-[1.05]"
-              style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.25rem, 5vw, 4rem)', fontWeight: 800 }}
+              style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 5vw, 4rem)', fontWeight: 800 }}
             >
               Um endereço que resolve o dia a dia, não só o fim de semana.
             </h2>
           </div>
 
-          <div className="border-l-2 border-orange/55 pl-6 lg:mb-1">
-            <p className="max-w-md text-base leading-relaxed text-ink/60">
+          <div className="border-l-2 border-orange/55 pl-5 md:pl-6 lg:mb-1">
+            <p className="max-w-md text-sm leading-relaxed text-ink/60 md:text-base">
               Shopping Nova Iguaçu, escolas e comércio no entorno, sem precisar atravessar a cidade.
             </p>
-            <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-navy/45">
+            <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-navy/45 md:mt-4">
               O essencial na sua rotina
             </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12 lg:gap-5">
+        {/* Mobile: compact list */}
+        <ul className="overflow-hidden rounded-[1.35rem] border border-navy/10 bg-white shadow-[0_14px_40px_rgba(26,58,87,0.07)] sm:hidden">
+          {locationPoints.map((pt, index) => {
+            const Icon = pt.icon
+            const featured = pt.featured === true
+
+            return (
+              <motion.li
+                key={pt.name}
+                initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+                animate={inView || reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+                transition={{ duration: 0.45, delay: reduceMotion ? 0 : index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                className={`flex items-center gap-3.5 px-4 py-3.5 ${
+                  index > 0 ? 'border-t border-navy/8' : ''
+                } ${featured ? 'bg-navy' : ''}`}
+              >
+                <span
+                  className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
+                    featured ? 'bg-orange text-white' : 'bg-orange/10 text-orange'
+                  }`}
+                  aria-hidden="true"
+                >
+                  <Icon size={18} strokeWidth={1.9} />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <h3
+                    className={`truncate text-[0.95rem] font-bold leading-tight ${featured ? 'text-white' : 'text-navy'}`}
+                    style={{ fontFamily: 'var(--font-display)' }}
+                  >
+                    {pt.name}
+                  </h3>
+                  <p className={`mt-0.5 truncate text-xs leading-snug ${featured ? 'text-white/55' : 'text-ink/50'}`}>
+                    {pt.detail}
+                  </p>
+                </div>
+                <span className={`shrink-0 text-[10px] font-semibold tracking-[0.16em] ${featured ? 'text-white/30' : 'text-navy/25'}`}>
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+              </motion.li>
+            )
+          })}
+        </ul>
+
+        {/* Tablet/Desktop cards */}
+        <div className="hidden gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-12 lg:gap-5">
           {locationPoints.map((pt, index) => {
             const Icon = pt.icon
             const featured = pt.featured === true
@@ -804,7 +1043,7 @@ function LocationBlock({ onCta }: { onCta: () => void }) {
           })}
         </div>
 
-        <div className="mt-12 flex justify-center">
+        <div className="mt-8 flex justify-center md:mt-12">
           <PillButton onClick={onCta} size="lg">Quero receber informações</PillButton>
         </div>
       </div>
@@ -954,13 +1193,13 @@ function CredibilityBlock({ onCta }: { onCta: () => void }) {
           </div>
         </motion.div>
 
-        <div className="mt-14">
-          <div className="mb-7 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+        <div className="mt-10 md:mt-14">
+          <div className="mb-5 flex flex-col justify-between gap-3 md:mb-7 md:flex-row md:items-end md:gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange">Certificações e parceiros</p>
               <h3
-                className="mt-3 max-w-2xl text-navy leading-tight"
-                style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.65rem, 3vw, 2.4rem)', fontWeight: 800 }}
+                className="mt-2 max-w-2xl text-navy leading-tight md:mt-3"
+                style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.45rem, 3vw, 2.4rem)', fontWeight: 800 }}
               >
                 Credenciais que você pode conferir.
               </h3>
@@ -970,7 +1209,7 @@ function CredibilityBlock({ onCta }: { onCta: () => void }) {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
             {partnerLogos.map((partner, index) => (
               <motion.div
                 key={partner.alt}
@@ -978,10 +1217,10 @@ function CredibilityBlock({ onCta }: { onCta: () => void }) {
                 animate={inView || reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
                 transition={{ duration: 0.55, delay: reduceMotion ? 0 : 0.3 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={reduceMotion ? undefined : { y: -5, transition: { duration: 0.2 } }}
-                className="flex min-h-[210px] flex-col items-center justify-center rounded-[1.65rem] bg-white/90 p-5 text-center shadow-[0_18px_50px_rgba(26,58,87,0.08)]"
+                className="flex min-h-[148px] flex-col items-center justify-center rounded-[1.25rem] bg-white/90 p-3 text-center shadow-[0_14px_40px_rgba(26,58,87,0.07)] md:min-h-[180px] md:rounded-[1.5rem] md:p-4"
               >
-                <img src={partner.src} alt={partner.alt} className="h-32 w-32 object-contain md:h-36 md:w-36" />
-                <p className="mt-3 text-xs font-medium leading-relaxed text-ink/52">{partner.label}</p>
+                <img src={partner.src} alt={partner.alt} className="h-20 w-20 object-contain md:h-28 md:w-28" />
+                <p className="mt-2 text-[11px] font-medium leading-snug text-ink/52 md:mt-2.5 md:text-xs md:leading-relaxed">{partner.label}</p>
               </motion.div>
             ))}
           </div>
@@ -999,7 +1238,7 @@ function LeadCta({ onOpen }: { onOpen: () => void }) {
   return (
     <section id="cadastro" className="relative overflow-hidden bg-navy px-5 py-20 md:py-24">
       <div className="pointer-events-none absolute -bottom-40 -left-24 h-96 w-96 rounded-full bg-teal/10 blur-3xl" />
-      <div className="pointer-events-none absolute -right-28 top-1/2 h-[30rem] w-[30rem] -translate-y-1/2 opacity-[0.13] md:-right-20 md:h-[36rem] md:w-[36rem] lg:right-[-4rem]">
+      <div className="pointer-events-none absolute top-1/2 right-0 h-[26rem] w-[26rem] -translate-y-1/2 translate-x-1/2 opacity-[0.13] md:h-[34rem] md:w-[34rem] lg:h-[36rem] lg:w-[36rem]">
         <motion.img
           src={oasisSymbol}
           alt=""

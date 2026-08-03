@@ -66,10 +66,20 @@ body {
   transition-timing-function: ease, cubic-bezier(0.22, 1, 0.36, 1), ease, ease;
 }
 
-.space-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(235, 145, 89, 0.35);
-  box-shadow: 0 24px 60px rgba(30, 60, 88, 0.12);
+@media (hover: hover) and (pointer: fine) {
+  .space-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(235, 145, 89, 0.35);
+    box-shadow: 0 24px 60px rgba(30, 60, 88, 0.12);
+  }
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 .badge-animate {
