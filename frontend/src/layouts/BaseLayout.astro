@@ -1,0 +1,145 @@
+---
+import '../styles/global.css'
+
+const siteUrl = Astro.site?.href?.replace(/\/$/, '') || 'https://oasis2.com.br'
+const pathname = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`
+const canonicalUrl = new URL(pathname === '//' ? '/' : pathname, `${siteUrl}/`).href
+
+const {
+  title = 'Oásis II | Apartamentos no Bairro da Luz, Nova Iguaçu',
+  description = 'Conheça o Oásis II: plantas amplas, torre única e lazer completo no Bairro da Luz, Nova Iguaçu. Receba plantas, valores e condições da Gênesis Empreendimentos.',
+  image = 'https://wp.oasis2.com.br/wp-content/uploads/2026/04/GN-Oasis_2-Fachada-Diurna_03-scaled.png',
+  imageAlt = 'Fachada do Oásis II Residencial no Bairro da Luz, Nova Iguaçu',
+} = Astro.props
+
+const ogImage = image.startsWith('http') ? image : new URL(image, `${siteUrl}/`).href
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: siteUrl,
+      name: 'Oásis II',
+      description,
+      inLanguage: 'pt-BR',
+      publisher: { '@id': `${siteUrl}/#organization` },
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${canonicalUrl}#webpage`,
+      url: canonicalUrl,
+      name: title,
+      description,
+      isPartOf: { '@id': `${siteUrl}/#website` },
+      about: { '@id': `${siteUrl}/#residence` },
+      inLanguage: 'pt-BR',
+      primaryImageOfPage: {
+        '@type': 'ImageObject',
+        url: ogImage,
+        caption: imageAlt,
+      },
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: 'Gênesis Empreendimentos',
+      url: 'https://genesisempreendimentos.com.br',
+      logo: `${siteUrl}/oasis-logo.png`,
+    },
+    {
+      '@type': 'ApartmentComplex',
+      '@id': `${siteUrl}/#residence`,
+      name: 'Oásis II',
+      description:
+        'Empreendimento residencial com plantas amplas, torre única e áreas de lazer no rooftop, no Bairro da Luz, Nova Iguaçu.',
+      url: canonicalUrl,
+      image: ogImage,
+      numberOfAccommodationUnits: 180,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Nova Iguaçu',
+        addressRegion: 'RJ',
+        addressCountry: 'BR',
+        addressNeighborhood: 'Bairro da Luz',
+      },
+      amenityFeature: [
+        { '@type': 'LocationFeatureSpecification', name: 'Piscina' },
+        { '@type': 'LocationFeatureSpecification', name: 'Academia' },
+        { '@type': 'LocationFeatureSpecification', name: 'Espaço gourmet' },
+        { '@type': 'LocationFeatureSpecification', name: 'Churrasqueira' },
+        { '@type': 'LocationFeatureSpecification', name: 'SPA' },
+        { '@type': 'LocationFeatureSpecification', name: 'Sauna' },
+      ],
+      developer: { '@id': `${siteUrl}/#organization` },
+    },
+  ],
+}
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="author" content="Gênesis Empreendimentos" />
+    <meta name="theme-color" content="#1E3C58" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" as="image" href={ogImage} fetchpriority="high" />
+    <title>{title}</title>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Oásis II" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={imageAlt} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <script is:inline>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+        }
+        if (!f._fbq) f._fbq = n
+        n.push = n
+        n.loaded = !0
+        n.version = '2.0'
+        n.queue = []
+        t = b.createElement(e)
+        t.async = !0
+        t.src = v
+        s = b.getElementsByTagName(e)[0]
+        s.parentNode.insertBefore(t, s)
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js')
+      fbq('init', '1749280982701521')
+      fbq('track', 'PageView')
+    </script>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display:none"
+        src="https://www.facebook.com/tr?id=1749280982701521&ev=PageView&noscript=1"
+        alt=""
+      />
+    </noscript>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

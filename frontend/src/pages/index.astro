@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import ProofOfSpace from '../components/ProofOfSpace.astro'
+import LeadCta from '../components/LeadCta.astro'
+import Footer from '../components/Footer.astro'
+import LenisRoot from '../components/islands/LenisRoot.jsx'
+import StatsBar from '../components/islands/StatsBar.jsx'
+import ExclusivityBlock from '../components/islands/ExclusivityBlock.jsx'
+import RooftopBlock from '../components/islands/RooftopBlock.jsx'
+import LocationBlock from '../components/islands/LocationBlock.jsx'
+import CredibilityBlock from '../components/islands/CredibilityBlock.jsx'
+import LeadForm from '../components/islands/LeadForm.jsx'
+import CompletePromptModal from '../components/islands/CompletePromptModal.jsx'
+import LeadModal from '../components/islands/LeadModal.jsx'
+import FooterViewContent from '../components/islands/FooterViewContent.jsx'
+---
+
+<BaseLayout
+  title="Oásis II | Apartamentos no Bairro da Luz, Nova Iguaçu"
+  description="Conheça o Oásis II: plantas amplas, torre única e lazer completo no Bairro da Luz, Nova Iguaçu. Receba plantas, valores e condições da Gênesis Empreendimentos."
+>
+  <LenisRoot client:load />
+  <div class="bg-cream">
+    <Hero />
+    <StatsBar client:visible />
+    <div class="relative overflow-hidden bg-cream">
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+        <div class="absolute top-16 -right-28 w-[34rem] h-[34rem] rounded-full bg-orange/10 blur-3xl"></div>
+        <div class="absolute top-[46rem] -left-28 w-[32rem] h-[32rem] rounded-full bg-teal/10 blur-3xl"></div>
+        <div class="absolute bottom-20 right-0 w-[30rem] h-[30rem] rounded-full bg-orange/[0.06] blur-3xl"></div>
+      </div>
+      <ProofOfSpace />
+      <ExclusivityBlock client:visible />
+      <div aria-hidden="true" class="h-24 md:h-32 bg-gradient-to-b from-transparent via-navy/15 to-navy"></div>
+    </div>
+    <RooftopBlock client:visible />
+    <LocationBlock client:visible />
+    <CredibilityBlock client:visible />
+    <LeadCta />
+    <Footer />
+    <FooterViewContent client:load />
+    <LeadForm client:load />
+    <CompletePromptModal client:load />
+    <LeadModal client:load />
+  </div>
+</BaseLayout>
