@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
-import { Dumbbell, GraduationCap, Mail, MapPin, Phone, Pill, Play, ShoppingBag, TrainFront, X } from 'lucide-react'
+import { Dumbbell, GraduationCap, MapPin, Pill, Play, ShoppingBag, TrainFront, X } from 'lucide-react'
+import { ReactLenis, useLenis } from 'lenis/react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { FaFacebookF, FaInstagram } from 'react-icons/fa'
 import oasisSymbol from '../assets/logo-oasis-2.svg'
 
 // ── Hooks ──────────────────────────────────────────────────────────────────────
@@ -371,7 +371,7 @@ const spaceCards = [
   },
 ]
 
-function ProofOfSpace() {
+function ProofOfSpace({ onCta }: { onCta: () => void }) {
   const { ref, inView } = useInView(0.12)
   return (
     <section className="relative py-24 md:py-28 px-5 bg-transparent">
@@ -437,6 +437,10 @@ function ProofOfSpace() {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className={`mt-12 flex justify-center card-enter ${inView ? 'visible' : ''}`} style={{ transitionDelay: '520ms' }}>
+          <PillButton onClick={onCta} size="lg">Quero ver as plantas</PillButton>
         </div>
       </div>
     </section>
@@ -560,13 +564,13 @@ const rooftopPhotos = [
     span: 'md:col-span-7',
   },
   {
-    src: 'https://wp.oasis2.com.br/wp-content/uploads/2026/02/GN-Oasis_2-Internas-Varanda_01-scaled.png',
-    label: 'Vista panorâmica',
+    src: 'https://wp.oasis2.com.br/wp-content/uploads/2026/02/GN-Oasis_2-Benfeitoria-Academia_01-scaled.png',
+    label: 'Academia',
     span: 'md:col-span-12',
   },
 ]
 
-function RooftopBlock() {
+function RooftopBlock({ onCta }: { onCta: () => void }) {
   const { ref, inView } = useInView(0.08)
   return (
     <section className="relative overflow-hidden py-24 md:py-28 px-5 bg-navy">
@@ -629,6 +633,11 @@ function RooftopBlock() {
             </div>
           ))}
         </div>
+
+        <div className={`mt-12 flex flex-col items-center gap-3 card-enter ${inView ? 'visible' : ''}`} style={{ transitionDelay: '720ms' }}>
+          <PillButton onClick={onCta} size="lg">Quero conhecer o lazer</PillButton>
+          <p className="text-xs text-white/40">Receba fotos, plantas e condições.</p>
+        </div>
       </div>
     </section>
   )
@@ -670,7 +679,7 @@ const locationPoints = [
   },
 ]
 
-function LocationBlock() {
+function LocationBlock({ onCta }: { onCta: () => void }) {
   const { ref, inView } = useInView(0.12)
   const reduceMotion = useReducedMotion()
 
@@ -732,7 +741,16 @@ function LocationBlock() {
                 }`}
               >
                 {featured && (
-                  <div className="pointer-events-none absolute -right-12 -top-16 h-48 w-48 rounded-full border-[34px] border-orange/15" />
+                  <div className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 opacity-[0.13]">
+                    <motion.img
+                      src={oasisSymbol}
+                      alt=""
+                      aria-hidden="true"
+                      animate={reduceMotion ? undefined : { rotate: 360 }}
+                      transition={{ duration: 72, repeat: Infinity, ease: 'linear' }}
+                      className="h-full w-full"
+                    />
+                  </div>
                 )}
 
                 <div className="relative flex h-full flex-col justify-between gap-8">
@@ -785,6 +803,10 @@ function LocationBlock() {
             )
           })}
         </div>
+
+        <div className="mt-12 flex justify-center">
+          <PillButton onClick={onCta} size="lg">Quero receber informações</PillButton>
+        </div>
       </div>
     </section>
   )
@@ -805,7 +827,7 @@ const partnerLogos = [
   { src: '/partners/iso-9001.png', alt: 'ISO 9001', label: 'Gestão da qualidade certificada' },
 ]
 
-function CredibilityBlock() {
+function CredibilityBlock({ onCta }: { onCta: () => void }) {
   const { ref, inView } = useInView(0.12)
   const reduceMotion = useReducedMotion()
   const [videoOpen, setVideoOpen] = useState(false)
@@ -819,7 +841,16 @@ function CredibilityBlock() {
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           className="relative overflow-hidden rounded-[2.25rem] bg-navy shadow-[0_30px_90px_rgba(20,53,81,0.18)]"
         >
-          <div className="pointer-events-none absolute -left-24 -top-28 h-80 w-80 rounded-full border-[52px] border-orange/10" />
+          <div className="pointer-events-none absolute -left-20 -top-24 h-[22rem] w-[22rem] opacity-[0.13] md:h-[26rem] md:w-[26rem]">
+            <motion.img
+              src={oasisSymbol}
+              alt=""
+              aria-hidden="true"
+              animate={reduceMotion ? undefined : { rotate: 360 }}
+              transition={{ duration: 72, repeat: Infinity, ease: 'linear' }}
+              className="h-full w-full"
+            />
+          </div>
           <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
             <div className="relative flex flex-col justify-center p-8 md:p-11 lg:p-14">
               <div className="mb-4 flex items-center gap-3 text-orange">
@@ -832,9 +863,6 @@ function CredibilityBlock() {
               >
                 16 anos entregando o que promete.
               </h2>
-              <p className="mt-5 max-w-lg text-base leading-relaxed text-white/58">
-                Todo argumento desta página é sustentado por fato, não por adjetivo.
-              </p>
 
               <div className="mt-9 divide-y divide-white/10">
                 {credBadges.map((badge, index) => (
@@ -851,6 +879,10 @@ function CredibilityBlock() {
                     <span className="text-sm font-medium text-white/78 md:text-base">{badge.text}</span>
                   </motion.div>
                 ))}
+              </div>
+
+              <div className="mt-9">
+                <PillButton onClick={onCta} size="lg">Falar com a equipe</PillButton>
               </div>
             </div>
 
@@ -908,7 +940,7 @@ function CredibilityBlock() {
                         Teaser Oásis II
                       </span>
                       <span className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/48">
-                        Assistir sem sair da página
+                        Assistir agora
                       </span>
                     </div>
 
@@ -1170,88 +1202,18 @@ function Footer() {
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange/55 to-transparent" />
 
       <div className="relative mx-auto max-w-7xl">
-        <div className="grid gap-12 lg:grid-cols-[1.15fr_1fr_0.65fr] lg:gap-14">
-          <div className="max-w-md">
-            <img
-              src="https://wp.oasis2.com.br/wp-content/uploads/2026/02/SR-GN-Int-Logo-Horizontal-azulbranco.png"
-              alt="Gênesis Empreendimentos"
-              className="h-12 w-auto object-contain object-left md:h-14"
-            />
-            <p className="mt-6 text-sm leading-7 text-white/58">
-              Há 16 anos, a Gênesis transforma projetos em lugares pensados para viver bem — com qualidade, compromisso e atenção a cada detalhe.
-            </p>
-            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/48">
-              <span className="h-1.5 w-1.5 rounded-full bg-orange" />
-              Oásis II · Nova Iguaçu
-            </div>
-          </div>
-
-          <div className="lg:border-l lg:border-white/8 lg:pl-12">
-            <div className="mb-6 flex items-center gap-3">
-              <span className="h-px w-8 bg-orange/75" />
-              <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-orange">Fale com a Gênesis</h3>
-            </div>
-
-            <ul className="flex flex-col gap-5 text-sm text-white/62">
-              <li className="flex items-start gap-4">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white/[0.055] text-orange">
-                  <MapPin size={18} strokeWidth={1.8} />
-                </span>
-                <span className="pt-0.5 leading-6">
-                  Av. Ivani Vigne Babo, s/n <span className="text-white/35">(Antiga Av. Luz)</span>
-                  <br />Bairro da Luz, Nova Iguaçu — RJ
-                </span>
-              </li>
-              <li className="flex items-center gap-4">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white/[0.055] text-orange">
-                  <Phone size={17} strokeWidth={1.8} />
-                </span>
-                <a href="tel:+552126421203" className="font-medium transition-colors hover:text-orange">
-                  (21) 2642-1203
-                </a>
-              </li>
-              <li className="flex items-center gap-4">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white/[0.055] text-orange">
-                  <Mail size={17} strokeWidth={1.8} />
-                </span>
-                <a
-                  href="mailto:comercial@genesisempreendimentos.com.br"
-                  className="min-w-0 break-words font-medium leading-5 transition-colors hover:text-orange"
-                >
-                  comercial@genesisempreendimentos.com.br
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="lg:border-l lg:border-white/8 lg:pl-10">
-            <div className="mb-6 flex items-center gap-3">
-              <span className="h-px w-8 bg-orange/75" />
-              <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-orange">Acompanhe</h3>
-            </div>
-            <p className="max-w-xs text-sm leading-6 text-white/48">
-              Novidades, bastidores e novos empreendimentos.
-            </p>
-            <div className="mt-6 flex items-center gap-3">
-              <a
-                href="https://www.instagram.com/genesisempreendimentos"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram da Gênesis Empreendimentos"
-                className="group flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.055] text-white transition-all duration-200 hover:-translate-y-1 hover:border-orange/40 hover:bg-orange"
-              >
-                <FaInstagram size={21} aria-hidden="true" />
-              </a>
-              <a
-                href="https://www.facebook.com/genesisempreendimentos"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook da Gênesis Empreendimentos"
-                className="group flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.055] text-white transition-all duration-200 hover:-translate-y-1 hover:border-orange/40 hover:bg-orange"
-              >
-                <FaFacebookF size={19} aria-hidden="true" />
-              </a>
-            </div>
+        <div className="max-w-md">
+          <img
+            src="https://wp.oasis2.com.br/wp-content/uploads/2026/02/SR-GN-Int-Logo-Horizontal-azulbranco.png"
+            alt="Gênesis Empreendimentos"
+            className="h-12 w-auto object-contain object-left md:h-14"
+          />
+          <p className="mt-6 text-sm leading-7 text-white/58">
+            Há 16 anos, a Gênesis transforma projetos em lugares pensados para viver bem — com qualidade, compromisso e atenção a cada detalhe.
+          </p>
+          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/48">
+            <span className="h-1.5 w-1.5 rounded-full bg-orange" />
+            Oásis II · Nova Iguaçu
           </div>
         </div>
 
@@ -1288,29 +1250,57 @@ function Footer() {
 
 // ── App ────────────────────────────────────────────────────────────────────────
 
+function LenisPause({ paused }: { paused: boolean }) {
+  const lenis = useLenis()
+
+  useEffect(() => {
+    if (!lenis) return
+    if (paused) lenis.stop()
+    else lenis.start()
+  }, [lenis, paused])
+
+  return null
+}
+
 export default function App() {
   const [leadOpen, setLeadOpen] = useState(false)
+  const reduceMotion = useReducedMotion()
+  const openLead = () => setLeadOpen(true)
 
   return (
-    <div className="bg-cream">
-      <Hero onCta={() => setLeadOpen(true)} />
-      <StatsBar />
-      <div className="relative overflow-hidden bg-cream">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-          <div className="absolute top-16 -right-28 w-[34rem] h-[34rem] rounded-full bg-orange/10 blur-3xl" />
-          <div className="absolute top-[46rem] -left-28 w-[32rem] h-[32rem] rounded-full bg-teal/10 blur-3xl" />
-          <div className="absolute bottom-20 right-0 w-[30rem] h-[30rem] rounded-full bg-orange/[0.06] blur-3xl" />
+    <>
+      {!reduceMotion && (
+        <ReactLenis
+          root
+          options={{
+            lerp: 0.08,
+            duration: 1.2,
+            smoothWheel: true,
+            anchors: true,
+          }}
+        />
+      )}
+      <LenisPause paused={leadOpen} />
+      <div className="bg-cream">
+        <Hero onCta={openLead} />
+        <StatsBar />
+        <div className="relative overflow-hidden bg-cream">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+            <div className="absolute top-16 -right-28 w-[34rem] h-[34rem] rounded-full bg-orange/10 blur-3xl" />
+            <div className="absolute top-[46rem] -left-28 w-[32rem] h-[32rem] rounded-full bg-teal/10 blur-3xl" />
+            <div className="absolute bottom-20 right-0 w-[30rem] h-[30rem] rounded-full bg-orange/[0.06] blur-3xl" />
+          </div>
+          <ProofOfSpace onCta={openLead} />
+          <ExclusivityBlock />
+          <div aria-hidden="true" className="h-24 md:h-32 bg-gradient-to-b from-transparent via-navy/15 to-navy" />
         </div>
-        <ProofOfSpace />
-        <ExclusivityBlock />
-        <div aria-hidden="true" className="h-24 md:h-32 bg-gradient-to-b from-transparent via-navy/15 to-navy" />
+        <RooftopBlock onCta={openLead} />
+        <LocationBlock onCta={openLead} />
+        <CredibilityBlock onCta={openLead} />
+        <LeadCta onOpen={openLead} />
+        <Footer />
+        <LeadModal open={leadOpen} onClose={() => setLeadOpen(false)} />
       </div>
-      <RooftopBlock />
-      <LocationBlock />
-      <CredibilityBlock />
-      <LeadCta onOpen={() => setLeadOpen(true)} />
-      <Footer />
-      <LeadModal open={leadOpen} onClose={() => setLeadOpen(false)} />
-    </div>
+    </>
   )
 }

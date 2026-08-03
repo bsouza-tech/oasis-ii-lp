@@ -33,10 +33,6 @@
   to { transform: rotate(360deg); }
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   font-family: var(--font-body);
   background-color: #FFF2E5;

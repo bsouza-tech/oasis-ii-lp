@@ -10,6 +10,7 @@
     "format": "oxfmt"
   },
   "dependencies": {
+    "lenis": "^1.3.25",
     "lucide-react": "^1.28.0",
     "motion": "^12.43.0",
     "react": "^19.0.0",
