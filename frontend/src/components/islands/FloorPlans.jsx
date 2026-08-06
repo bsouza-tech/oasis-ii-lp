@@ -32,6 +32,7 @@ function FloorPlans() {
   const expandButtonRef = useRef(null)
   const closeButtonRef = useRef(null)
   const touchStartX = useRef(null)
+  const imageRef = useRef(null)
 
   const plansInCategory = getPlansByCategory(categoryId)
   const activePlan = getFloorPlanById(planId)
@@ -41,8 +42,19 @@ function FloorPlans() {
     floorPlans.findIndex((plan) => plan.id === planId),
   )
 
+  const resolveImageStatus = (img) => {
+    if (!img) return
+    if (img.complete) {
+      setImageStatus(img.naturalWidth > 0 ? 'loaded' : 'error')
+    }
+  }
+
   useEffect(() => {
     setImageStatus('loading')
+    const frame = window.requestAnimationFrame(() => {
+      resolveImageStatus(imageRef.current)
+    })
+    return () => window.cancelAnimationFrame(frame)
   }, [planId, imageRetry])
 
   const goToPlanIndex = (nextIndex) => {
@@ -167,10 +179,6 @@ function FloorPlans() {
           <div className="grid lg:grid-cols-[1.45fr_0.9fr]">
             <div className="relative border-b border-navy/8 lg:border-b-0 lg:border-r">
               <div className="relative grid aspect-[5/4] place-items-center bg-[#f7f4ef] sm:aspect-[4/3] lg:aspect-[5/4] lg:min-h-[28rem]">
-                {imageStatus === 'loading' ? (
-                  <div className="absolute inset-0 bg-navy/[0.04] motion-safe:animate-pulse" aria-hidden="true" />
-                ) : null}
-
                 {imageStatus === 'error' ? (
                   <div className="flex flex-col items-center gap-3 px-6 text-center">
                     <p className="text-sm text-ink/55">Não foi possível carregar esta planta.</p>
@@ -185,23 +193,34 @@ function FloorPlans() {
                 ) : (
                   <img
                     key={`${activePlan.id}-${imageRetry}`}
+                    ref={(node) => {
+                      imageRef.current = node
+                      if (node?.complete) {
+                        queueMicrotask(() => resolveImageStatus(node))
+                      }
+                    }}
                     src={activePlan.imageUrl}
                     alt={activePlan.alt}
-                    loading="lazy"
+                    loading="eager"
                     decoding="async"
-                    className={`h-full w-full object-contain p-1.5 motion-safe:transition-opacity motion-safe:duration-200 sm:p-2 md:p-3 ${
-                      imageStatus === 'loaded' ? 'opacity-100' : 'opacity-0'
-                    }`}
+                    className="h-full w-full object-contain p-1.5 sm:p-2 md:p-3"
                     onLoad={() => setImageStatus('loaded')}
                     onError={() => setImageStatus('error')}
                   />
                 )}
 
+                {imageStatus === 'loading' ? (
+                  <div
+                    className="pointer-events-none absolute inset-0 bg-[#f7f4ef]/55 motion-safe:animate-pulse"
+                    aria-hidden="true"
+                  />
+                ) : null}
+
                 <button
                   ref={expandButtonRef}
                   type="button"
                   onClick={() => setLightboxOpen(true)}
-                  className="absolute bottom-3 right-3 inline-flex min-h-10 items-center gap-1.5 rounded-full bg-navy/88 px-3.5 py-2 text-xs font-semibold text-white shadow-lg backdrop-blur-sm transition-colors hover:bg-orange focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange md:bottom-4 md:right-4"
+                  className="absolute bottom-3 right-3 z-10 inline-flex min-h-10 items-center gap-1.5 rounded-full bg-navy/88 px-3.5 py-2 text-xs font-semibold text-white shadow-lg backdrop-blur-sm transition-colors hover:bg-orange focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange md:bottom-4 md:right-4"
                 >
                   <Expand size={14} />
                   Ampliar
@@ -345,19 +364,13 @@ function FloorPlans() {
                 <ChevronLeft size={22} />
               </button>
 
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={`dialog-${activePlan.id}`}
-                  src={activePlan.imageUrl}
-                  alt={activePlan.alt}
-                  initial={reduceMotion ? false : { opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={reduceMotion ? undefined : { opacity: 0 }}
-                  transition={{ duration: reduceMotion ? 0 : 0.22 }}
-                  className="max-h-full max-w-full select-none object-contain"
-                  draggable={false}
-                />
-              </AnimatePresence>
+              <img
+                key={`dialog-${activePlan.id}`}
+                src={activePlan.imageUrl}
+                alt={activePlan.alt}
+                className="max-h-full max-w-full select-none object-contain"
+                draggable={false}
+              />
 
               <button
                 type="button"
