@@ -1,5 +1,5 @@
-export function openLeadModal() {
-  window.dispatchEvent(new CustomEvent('open-lead'))
+export function openLeadModal(detail) {
+  window.dispatchEvent(new CustomEvent('open-lead', { detail }))
   window.dispatchEvent(new CustomEvent('pause-scroll'))
 }
 

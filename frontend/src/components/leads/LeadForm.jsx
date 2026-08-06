@@ -11,6 +11,7 @@ import { FormField } from '../../lib/ui.jsx'
 
 function LeadForm() {
   const [open, setOpen] = useState(false)
+  const [floorPlanContext, setFloorPlanContext] = useState(null)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -18,7 +19,15 @@ function LeadForm() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    const openHandler = () => {
+    const openHandler = (event) => {
+      setFloorPlanContext(
+        event.detail?.floorPlanLabel
+          ? {
+              id: event.detail.floorPlanId,
+              label: event.detail.floorPlanLabel,
+            }
+          : null,
+      )
       setErrors({})
       setOpen(true)
     }
@@ -37,6 +46,7 @@ function LeadForm() {
 
   const handleClose = () => {
     setOpen(false)
+    setFloorPlanContext(null)
     window.dispatchEvent(new CustomEvent('close-lead'))
     window.dispatchEvent(new CustomEvent('resume-scroll'))
   }
@@ -95,6 +105,7 @@ function LeadForm() {
 
       trackMeta('Lead')
       setOpen(false)
+      setFloorPlanContext(null)
       setName('')
       setEmail('')
       setPhone('')
@@ -145,16 +156,18 @@ function LeadForm() {
 
             <form id="lead-form" onSubmit={handleSubmit} noValidate className="flex flex-col gap-5 p-7 pt-9 md:p-9 md:pt-10">
               <div className="pr-12">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange">Cadastro rápido</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange">Agendar visita</p>
                 <h2
                   id="lead-form-title"
                   className="mt-2 text-navy leading-tight"
                   style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.65rem, 5vw, 2.15rem)', fontWeight: 800 }}
                 >
-                  Receba informações do Oásis II.
+                  Solicite sua visita ao Oásis II.
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-ink/52">
-                  Preencha seus dados para receber plantas, valores e novidades do empreendimento.
+                  {floorPlanContext?.label
+                    ? `Nossa equipe entrará em contato para apresentar a planta ${floorPlanContext.label} e combinar o melhor dia e horário.`
+                    : 'Preencha seus dados e nossa equipe entrará em contato para combinar o melhor dia e horário.'}
                 </p>
               </div>
 

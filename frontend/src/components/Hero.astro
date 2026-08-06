@@ -27,15 +27,19 @@ import OpenLeadButton from './islands/OpenLeadButton.jsx'
       class="hero-headline text-white leading-tight mb-4 max-w-2xl"
       style="font-family: var(--font-display); font-size: clamp(2.4rem, 6vw, 3.8rem); font-weight: 800;"
     >
-      As maiores plantas de Nova Iguaçu.
+      As maiores plantas da região.
     </h1>
     <p class="hero-sub text-white/75 text-base leading-relaxed mb-8 max-w-xl">
-      Plantas inteligentes que sua família vai sentir desde o primeiro dia, num jeito de morar que a maioria dos
-      apartamentos da região não oferece.
+      Ambientes amplos e layouts inteligentes para sua família viver com mais conforto em Nova Iguaçu.
     </p>
-    <div class="hero-cta flex flex-col items-center gap-2">
-      <OpenLeadButton client:load size="lg" />
-      <p class="text-white/55 text-xs">Plantas, valores e novidades do Oásis II.</p>
+    <div class="hero-cta flex flex-col items-center gap-3">
+      <OpenLeadButton client:load size="lg">Agendar uma visita</OpenLeadButton>
+      <a
+        href="#plantas"
+        class="text-sm font-medium text-white/70 underline-offset-4 transition-colors hover:text-white hover:underline"
+      >
+        Ver plantas e diferenciais
+      </a>
     </div>
   </div>
 </section>

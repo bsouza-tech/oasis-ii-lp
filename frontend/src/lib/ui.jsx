@@ -7,6 +7,7 @@ function PillButton({
   size = 'md',
   loading = false,
   className = '',
+  ...props
 }) {
   const base = 'rounded-full font-semibold transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 cursor-pointer'
   const sizes = { md: 'px-6 py-3 text-sm', lg: 'px-8 py-4 text-base' }
@@ -16,7 +17,7 @@ function PillButton({
     'outline-white': 'border-2 border-white text-white hover:bg-white hover:text-navy',
   }
   return (
-    <button onClick={onClick} className={`${base} ${sizes[size]} ${variants[variant]} ${className}`}>
+    <button onClick={onClick} className={`${base} ${sizes[size]} ${variants[variant]} ${className}`} {...props}>
       {loading ? <span className="spinner" /> : children}
     </button>
   )

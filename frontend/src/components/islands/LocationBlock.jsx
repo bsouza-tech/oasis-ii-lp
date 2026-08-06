@@ -208,7 +208,7 @@ function LocationBlock() {
         </div>
 
         <div className="mt-8 flex justify-center md:mt-12">
-          <PillButton onClick={scrollToLeadForm} size="lg">Quero receber informações</PillButton>
+          <PillButton onClick={scrollToLeadForm} size="lg">Agendar uma visita ao Oásis II</PillButton>
         </div>
       </div>
     </section>

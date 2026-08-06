@@ -28,16 +28,17 @@ function LeadCta() {
             className="max-w-4xl text-white leading-[1.06]"
             style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.15rem, 4.5vw, 3.8rem)', fontWeight: 800 }}
           >
-            Receba plantas, valores e novidades em primeira mão.
+            Conheça pessoalmente as plantas do Oásis II.
           </h2>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/58">
-            Faça um cadastro rápido para acessar todas as informações do empreendimento.
+            Agende uma visita e descubra como os ambientes amplos e os layouts inteligentes transformam a rotina da sua
+            família.
           </p>
         </div>
 
         <div className="flex flex-col items-start gap-3 lg:items-center">
-          <OpenLeadButton className="min-w-[260px]">Quero me cadastrar</OpenLeadButton>
-          <p className="text-xs text-white/40">Leva menos de um minuto.</p>
+          <OpenLeadButton className="min-w-[260px]">Agendar uma visita</OpenLeadButton>
+          <p className="text-xs text-white/40">Nossa equipe entra em contato para combinar o melhor horário.</p>
         </div>
       </div>
     </section>

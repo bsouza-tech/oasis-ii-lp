@@ -280,8 +280,7 @@ function RooftopBlock() {
           </div>
 
           <div className={`mt-12 flex flex-col items-center gap-3 card-enter ${inView ? 'visible' : ''}`} style={{ transitionDelay: '720ms' }}>
-            <PillButton onClick={scrollToLeadForm} size="lg">Quero conhecer o lazer</PillButton>
-            <p className="text-xs text-white/40">Receba fotos, plantas e condições.</p>
+            <PillButton onClick={scrollToLeadForm} size="lg">Quero visitar o Oásis II</PillButton>
           </div>
         </div>
       </section>

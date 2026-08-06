@@ -30,7 +30,7 @@ function ProofOfSpace() {
   const { ref, inView } = useInView(0.12)
 
   return (
-    <section className="relative py-16 md:py-28 px-5 bg-transparent">
+    <section id="plantas" className="relative py-16 md:py-28 px-5 bg-transparent">
       <div ref={ref} className="relative max-w-5xl mx-auto">
         <div className="grid md:grid-cols-[1.15fr_0.85fr] gap-6 md:gap-14 items-end mb-8 md:mb-16">
           <div
@@ -98,7 +98,7 @@ function ProofOfSpace() {
         </div>
 
         <div className={`mt-8 md:mt-12 flex justify-center card-enter ${inView ? 'visible' : ''}`} style={{ transitionDelay: '520ms' }}>
-          <PillButton onClick={scrollToLeadForm} size="lg">Quero ver as plantas</PillButton>
+          <PillButton onClick={scrollToLeadForm} size="lg">Conhecer as plantas pessoalmente</PillButton>
         </div>
       </div>
     </section>

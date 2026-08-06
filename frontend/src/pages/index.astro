@@ -6,6 +6,7 @@ import LeadCta from '../components/LeadCta.astro'
 import Footer from '../components/Footer.astro'
 import LenisRoot from '../components/islands/LenisRoot.jsx'
 import StatsBar from '../components/islands/StatsBar.jsx'
+import FloorPlans from '../components/islands/FloorPlans.jsx'
 import ExclusivityBlock from '../components/islands/ExclusivityBlock.jsx'
 import RooftopBlock from '../components/islands/RooftopBlock.jsx'
 import LocationBlock from '../components/islands/LocationBlock.jsx'
@@ -31,6 +32,7 @@ import FooterViewContent from '../components/islands/FooterViewContent.jsx'
         <div class="absolute bottom-20 right-0 w-[30rem] h-[30rem] rounded-full bg-orange/[0.06] blur-3xl"></div>
       </div>
       <ProofOfSpace />
+      <FloorPlans client:visible />
       <ExclusivityBlock client:visible />
       <div aria-hidden="true" class="h-24 md:h-32 bg-gradient-to-b from-transparent via-navy/15 to-navy"></div>
     </div>
